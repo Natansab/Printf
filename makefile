@@ -12,7 +12,7 @@
 
 NAME= ft_printftest
 
-SRC=	main.c ft_get_flags.c
+SRC=	main.c ft_get_flags.c ft_initialize_vars.c
 
 
 OBJ= $(addprefix $(OBJDIR),$(SRC:.c=.o))

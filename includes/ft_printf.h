@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:27:33 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/06 15:32:49 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/06 16:07:14 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FT_PRINTF_H
 
 #include "../libft/includes/libft.h"
+#include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
 
 typedef struct s_vars {
   int   hashtag;
@@ -25,8 +28,11 @@ typedef struct s_vars {
   int   precision;
   char  type;
   char* flag;
+  void* ptr2data;
 }             t_vars;
 
 char *ft_get_flags(char *str, t_vars *parsed);
+void	ft_initialize_vars(t_vars *parsed);
+
 
 #endif
