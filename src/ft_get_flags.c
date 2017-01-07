@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:55:21 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/06 15:47:02 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/07 18:26:42 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,27 @@ char *ft_get_flags(char *str, t_vars *parsed)
   while (!parsed->type && *str)
   {
     if (*str == '#')
-      parsed->hashtag = 1;
+      parsed->hashtag++;
     else if (*str == '0')
-      parsed->zero = 1;
+      parsed->zero++;
     else if (*str == '-')
-      parsed->minus = 1;
+      parsed->minus++;
     else if (*str == '+')
-      parsed->plus = 1;
+      parsed->plus++;
     else if (*str == ' ')
-      parsed->space = 1;
-    else if (*str == 's' || *str == 'S' || *str == 'p' || *str == 'd' || *str == 'D'
-        || *str == 'i' || *str == 'o' || *str == 'O' || *str == 'u'
-            || *str == 'U' || *str == 'x' || *str == 'X' || *str == 'c'
-              || *str == 'C')
+      parsed->space++;
+    else if (strchr("sSpdDioOuUxXcC", (int)*str))
       parsed->type = (char)*str;
     else if (*str >= '1' && *str <= '9' && !parsed->width)
+    {
         parsed->width = ft_atoi(str);
+        str = str + ft_nbrlen(parsed->width) - 1;
+    }
     else if (*str == '.')
-        parsed->precision = ft_atoi(++str);
+    {
+         parsed->precision = ft_atoi(++str);
+         str = str + ft_nbrlen(parsed->precision) - 1;
+    }
     str = ft_special_flags(str, parsed);
     str++;
   }
