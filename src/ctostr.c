@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initialize_vars.c                               :+:      :+:    :+:   */
+/*   ctostr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 16:07:05 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/08 17:01:21 by nsabbah          ###   ########.fr       */
+/*   Created: 2017/01/10 18:29:19 by nsabbah           #+#    #+#             */
+/*   Updated: 2017/01/10 18:32:37 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	ft_initialize_vars(t_vars *parsed)
+char *ctostr(char c)
 {
-	parsed->minus = 0;
-	parsed->zero = 0;
-	parsed->plus = 0;
-	parsed->width = 0;
-	parsed->space = 0;
-	parsed->hashtag = 0;
-	parsed->flag = 0;
-	parsed->type = 0;
-	parsed->precision = 0;
-	parsed->dot = 0;
+  char *str;
+
+  if (!(str = (char*)malloc(sizeof(*str) * 2)))
+    return NULL;
+  str[0] = c;
+  str[1] = '\0';
+  return (str);
 }

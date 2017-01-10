@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:55:21 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/07 18:26:42 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/08 19:38:51 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char *ft_get_flags(char *str, t_vars *parsed)
     }
     else if (*str == '.')
     {
+         parsed->dot++;
          parsed->precision = ft_atoi(++str);
          str = str + ft_nbrlen(parsed->precision) - 1;
     }
