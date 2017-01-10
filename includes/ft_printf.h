@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:27:33 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/10 19:02:50 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/10 19:14:55 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,9 @@ void	ft_initialize_vars(t_vars *parsed);
 void ft_print_parsed_value(char *str, t_vars *parsed);
 char *ctostr(char c);
 void ft_handler_o(va_list list, t_vars parsed);
+void ft_handler_x(va_list list, t_vars parsed);
+void ft_handler_u(va_list list, t_vars parsed);
+void ft_handler_upx(va_list list, t_vars parsed);
+void ft_handler_di(va_list list, t_vars parsed);
 
 #endif
