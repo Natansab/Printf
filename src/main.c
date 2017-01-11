@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 13:25:53 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/11 15:47:13 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 15:58:31 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ int ft_printf(const char* restrict format, ...)
     if (str > format)
         ft_putstr(ft_strndup(format, str - format));
 		if (str[1] == '%')
+    {
 				ft_putchar('%');
-		else if (str[1] != '%')
+        format = str + 2;
+    }
+		else
 			{
         ft_initialize_vars(&parsed);
 				ft_get_flags(str + 1, &parsed);
@@ -115,12 +118,12 @@ int ft_printf(const char* restrict format, ...)
         // Handling D
         if (strchr("D", (int)parsed.type))
             ft_print_parsed_value(ft_itoa(va_arg(list, long int)), &parsed);
-       }
 
-  i = 0;
-  while (!strchr(("sSpdDioOuUxXcC"), (int)str[i]))
-    i++;
-	format = str + i + 1;
+        i = 0;
+        while (!strchr(("sSpdDioOuUxXcC"), (int)str[i]))
+          i++;
+        format = str + i + 1;
+       }
 	}
   if (format != NULL)
     ft_putstr(format);
@@ -166,8 +169,9 @@ int main(void)
 //printf("test de la precision avec des int %10.5i|\n", 123);
 // ft_printf("test de la precision avec des int %10s|\n", "hello");
 // ft_printf("test de la precision avec des int %10i|\n", 123);
-// ft_printf("test de la precision avec des int %10.5x|\n", 123);
-// printf("test de la precision avec des int %10.5x|\n", 123);
+// printf("test de la precision avec des int %10i|\n", 123);
+ft_printf("test de la precision avec des int %% %10.2x|\n", 10023);
+// printf("test de la precision avec des int %10.2x|\n", 10023);
 //      printf("|%jx|\n", 452);
 //      printf("|%jX|\n", 452);
 //      printf("|%jo|\n", 452);
