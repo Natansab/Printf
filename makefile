@@ -10,6 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
+# alternative NAME
+# NAME = libftprintf.a
 NAME= ft_printftest
 
 SRC=	main.c ft_get_flags.c ft_initialize_vars.c ft_print_parsed_value.c \
@@ -45,6 +47,11 @@ $(LIBFT):
 
 $(NAME): obj libft $(OBJ)
 	$(CC) $(LIBLINK) -o $(NAME) $(OBJ)
+
+# alternative makefile to create libftprintf.a
+# $(NAME): obj libft $(OBJ)
+# 	$(CC) $(LIBLINK)
+# 	ar rc $(NAME) $(OBJ)
 
 remlib:
 	rm -rf $(LIBFT)

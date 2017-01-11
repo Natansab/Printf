@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:55:21 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/11 14:11:03 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 20:32:00 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char *ft_get_flags(char *str, t_vars *parsed)
     // parsed->hashtag = (*str == '#') ? parsed->hashtag : parsed->hashtag;
     if (*str == '#')
       parsed->hashtag++;
-    if (*str == '0')
+    else if (*str == '0')
       parsed->zero++;
     else if (*str == '-')
       parsed->minus++;
@@ -64,7 +64,10 @@ char *ft_get_flags(char *str, t_vars *parsed)
     {
          parsed->dot++;
          parsed->precision = ft_atoi(++str);
-         str = str + ft_nbrlen(parsed->precision) - 1;
+         if (parsed->precision)
+            str = str + ft_nbrlen(parsed->precision) - 1;
+        else
+            str = str - 1;
     }
     str = ft_special_flags(str, parsed);
     str++;
