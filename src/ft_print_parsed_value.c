@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 19:14:53 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/10 16:45:41 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 15:47:16 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ void ft_handle_plus(char **str)
       *str = ft_strjoin("0x", *str);
     if (strchr("X", parsed->type))
       *str = ft_strjoin("0X", *str);
-    // if (strchr("S", parsed->type))
-    //   ???????
-    // if (strchr("p", parsed->type))
-    //   ?????
   }
 
   void ft_handle_minus(t_vars *parsed, char **str)
@@ -64,19 +60,22 @@ void ft_handle_plus(char **str)
 
     void ft_handle_precision(t_vars *parsed, char **str)
     {
-      *str = strndup(*str, parsed->precision);
+      if (strchr("sS", parsed->type))
+        *str = strndup(*str, parsed->precision);
+      if (strchr("diouxX", parsed->type))
+        while (ft_strlen(*str) < (size_t)parsed->precision && ft_strlen(*str) < (size_t)parsed->width)
+          *str = ft_strjoin("0", *str);
     }
 
 void ft_print_parsed_value(char *str, t_vars *parsed)
 {
-  // Everything will be store in a string before being printed
-  //char *str = "1554";
-  if (parsed->dot && strchr("sS", parsed->type))
+  if (parsed->dot && strchr("sSdiouxX", parsed->type))
     ft_handle_precision(parsed, &str);
   if (parsed->plus && strchr("di", parsed->type))
     ft_handle_plus(&str);
   if (parsed->space && !parsed->plus && strchr("di", parsed->type))
     ft_handle_space(&str);
+  // if ft_atoi(str) = 0 do nothing
   if (parsed->hashtag && strchr("oxXSp", parsed->type) && ft_atoi(str))
      ft_handle_hashtag(parsed, &str);
   if (parsed->minus)
@@ -87,9 +86,7 @@ void ft_print_parsed_value(char *str, t_vars *parsed)
     ft_handle_width(parsed, &str);
 
   ft_putstr(str);
-  // printf("str is: |%s|\n", str);
   //
-  // //
   // printf("\nspace is : %i\n", parsed->space);
   // printf("zero is : %i\n", parsed->zero);
   // printf("hashtag is : %i\n", parsed->hashtag);
@@ -100,4 +97,4 @@ void ft_print_parsed_value(char *str, t_vars *parsed)
   // printf("precision is : %i\n", parsed->precision);
   // printf("flag is : %s\n", parsed->flag);
   // printf("ptr2data is : %p\n", parsed->ptr2data);
-}
+ }

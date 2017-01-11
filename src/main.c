@@ -6,11 +6,35 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/26 13:25:53 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/10 19:18:22 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 15:47:13 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+
+void ft_flag_error(t_vars *parsed)
+{
+  // Too many flags
+  if (parsed->minus > 1 || parsed->zero > 1 || parsed->plus > 1 || parsed->space > 1 || parsed->hashtag > 1 ||
+          parsed->dot > 1)
+      parsed->flag_error = 1;
+
+  // Wrong modificators / special-flags
+    // "pOUDS" should'nt have flag associated
+   if (strchr("pOUDS", (int)parsed->type) && parsed->flag)
+     parsed->flag_error = 2;
+    // "sc" types can only have "l" flag
+   if (strchr("sc", (int)parsed->type) && parsed->flag
+         && strcmp(parsed->flag, "l"))
+     parsed->flag_error = 3;
+
+   // "+" && " " can only be associated to "di"
+   if (!strchr("di", (int)parsed->type) && (parsed->plus || parsed->space))
+     parsed->flag_error = 4;
+   // "#" should only work with "xXp"
+   if (!strchr("xXo", (int)parsed->type) && parsed->hashtag)
+     parsed->flag_error = 5;
+}
 
 int ft_printf(const char* restrict format, ...)
 {
@@ -31,19 +55,27 @@ int ft_printf(const char* restrict format, ...)
 			{
         ft_initialize_vars(&parsed);
 				ft_get_flags(str + 1, &parsed);
+        ft_flag_error(&parsed);
+
+        if (parsed.flag_error)
+          //printf("parsed.flag_error vaut %i\n", parsed.flag_error);
+          return (0);
 
         // Handling s
         if (strchr("s", (int)parsed.type))
         {
-          if (!strcmp(parsed.flag, "l"))
-              ft_print_parsed_value(va_arg(list, char*), &parsed);
-          if (strcmp(parsed.flag, "l"))
+          if (!parsed.flag)
+                ft_print_parsed_value(va_arg(list, char*), &parsed);
+          else if (!strcmp(parsed.flag, "l"))
               ft_print_parsed_value((char*)va_arg(list, wchar_t*), &parsed);
         }
 
         // Handling c
         if (strchr("c", (int)parsed.type))
           ft_print_parsed_value(ctostr((char)va_arg(list, int)), &parsed);
+        // Handling c
+        // if (strchr("C", (int)parsed.type))
+        //   ft_print_parsed_value(ctostr((wint_lt)va_arg(list, wint_t)), &parsed);
 
         // Handling p
         if (strchr("p", (int)parsed.type))
@@ -119,9 +151,23 @@ int main(void)
 //   ft_printf("ft_printf hho %o\n", 23234);
 //
 // 	ft_printf("hello ישראל i am %-+4i and my name is %.5s. What about you? My hebrew name is %s", 24, "Natan", "ישראל");
-//   printf("a hebrew character %s\n", "⏚  ♷");
+    // printf("a unicode character %csdfs%xd\n", 'a', 12344532);
+    // ft_printf("a unicode character %csdfs%xd\n", 'a', 12344532);
+    //printf("a unicode character %lc\n", L'⏚');
+   //printf("ft_strlen d'un character unicode vaut %zu\n", ft_strlen("ח"));
 //     printf("%-400.s", "hello");
-//     printf("|%zu|\n", 452);
+//     printf("%#X\n", 150);
+     //ft_printf("hello : %llc et %o\n", 150, -150, 1324);
+//     printf("hello : %+s et %+X\n", "hello", -150);
+// ft_printf("hello %#o asdf\n", 123);
+// ft_printf("hello %#o asdf\n", 0);
+
+// ft_printf("hello %#s asdf\n", 0);
+//printf("test de la precision avec des int %10.5i|\n", 123);
+// ft_printf("test de la precision avec des int %10s|\n", "hello");
+// ft_printf("test de la precision avec des int %10i|\n", 123);
+// ft_printf("test de la precision avec des int %10.5x|\n", 123);
+// printf("test de la precision avec des int %10.5x|\n", 123);
 //      printf("|%jx|\n", 452);
 //      printf("|%jX|\n", 452);
 //      printf("|%jo|\n", 452);

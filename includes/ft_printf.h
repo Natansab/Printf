@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:27:33 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/10 19:14:55 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 13:46:47 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct s_vars {
   int   dot;
   char  type;
   char* flag;
+  int   flagnbr;
   void* ptr2data;
   char *str;
+  int  flag_error;
 }             t_vars;
 
 char *ft_get_flags(char *str, t_vars *parsed);

@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:55:21 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/08 19:38:51 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 14:11:03 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ char *ft_get_flags(char *str, t_vars *parsed)
 {
   while (!parsed->type && *str)
   {
+    // parsed->hashtag = (*str == '#') ? parsed->hashtag : parsed->hashtag;
     if (*str == '#')
       parsed->hashtag++;
-    else if (*str == '0')
+    if (*str == '0')
       parsed->zero++;
     else if (*str == '-')
       parsed->minus++;

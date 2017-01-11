@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 16:07:05 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/08 17:01:21 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/11 14:09:22 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	ft_initialize_vars(t_vars *parsed)
 	parsed->space = 0;
 	parsed->hashtag = 0;
 	parsed->flag = 0;
+	parsed->flagnbr = 0;
 	parsed->type = 0;
 	parsed->precision = 0;
 	parsed->dot = 0;
+	parsed->flag_error = 0;
 }
